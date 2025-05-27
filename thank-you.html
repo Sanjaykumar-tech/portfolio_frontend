@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Received - Sanjay's Portfolio</title>
+  <meta name="description" content="Thank you for contacting Sanjay Kumar. Your message has been successfully received.">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="thank-you.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" as="style">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="thank-you.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Preconnect to CDN for confetti -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
+<body>
+  <main class="thank-you-container">
+    <div class="thank-you-box" role="alert" aria-live="polite">
+      <div class="checkmark-animation">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h1>Message Received!</h1>
+      <p>Thank you for reaching out. Your message has been successfully sent and I'll get back to you soon.</p>
+      <div class="action-buttons">
+        <a href="index.html" class="btn">
+          <span class="btn-icon">←</span> Back to Home
+        </a>
+        <a href="#contact" class="btn secondary">
+          <span class="btn-icon">✉️</span> Send Another
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confetti effect -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" async></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Enhanced confetti with different effects
+      function fireConfetti() {
+        const end = Date.now() + 2000;
+        const colors = ['#00ff88', '#00cc66', '#ffffff'];
+        
+        function frame() {
+          confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+          });
+          confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+          });
+          
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        }
+        
+        // Initial burst
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        
+        // Follow-up animation
+        setTimeout(frame, 300);
+      }
+
+      // Check for reduced motion preference
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!mediaQuery || !mediaQuery.matches) {
+        setTimeout(fireConfetti, 500);
+      }
+
+      // Add animation class after load
+      setTimeout(() => {
+        document.querySelector('.checkmark-animation').classList.add('animate');
+      }, 100);
+    });
+  </script>
+</body>
+</html>

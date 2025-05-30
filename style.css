@@ -1037,7 +1037,11 @@ body:not(.light-mode) .project-card:hover .btn {
 .contact .heading {
   font-size: 6rem;
   color: var(--text-color);
+<<<<<<< HEAD
   margin-top: 6rem;
+=======
+  margin: 6rem 0 3rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -1048,18 +1052,32 @@ body:not(.light-mode) .project-card:hover .btn {
   align-items: center;
   max-width: 800px;
   margin: 0 auto;
+<<<<<<< HEAD
   gap: 2rem;
+=======
+  gap: 3rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .input-group {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+<<<<<<< HEAD
   gap: 2rem;
 }
 
 .input-box {
   width: 100%;
+=======
+  gap: 2.5rem;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .input-group-2 {
@@ -1075,13 +1093,21 @@ body:not(.light-mode) .project-card:hover .btn {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   border: 2px solid var(--main-color);
+<<<<<<< HEAD
   margin: 1.5rem 0;
   resize: none;
+=======
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   transition: var(--transition);
 }
 
 .contact form textarea {
   min-height: 200px;
+<<<<<<< HEAD
+=======
+  resize: none;
+  margin-bottom: 1.5rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .contact form input:focus,
@@ -1090,6 +1116,7 @@ body:not(.light-mode) .project-card:hover .btn {
   box-shadow: 0 0 0 2px var(--main-color);
 }
 
+<<<<<<< HEAD
 /* Form validation */
 input:invalid,
 textarea:invalid {
@@ -1101,6 +1128,128 @@ textarea:focus:invalid {
   box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3);
 }
 
+=======
+/* ===== ENHANCED VALIDATION STYLES ===== */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Error message styling */
+.error-message {
+  display: none;
+  color: #ff4444;
+  font-size: 1.4rem;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+  text-align: left;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Form-wide error container */
+.form-error {
+  display: none;
+  background-color: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border-left: 4px solid #ff4444;
+  margin: 1.5rem 0;
+  font-size: 1.6rem;
+  text-align: left;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Validation states */
+.input-wrapper.invalid input,
+.input-wrapper.invalid textarea {
+  border-color: #ff4444 !important;
+  background-color: rgba(255, 68, 68, 0.05);
+}
+
+.input-wrapper.valid input,
+.input-wrapper.valid textarea {
+  border-color: #4CAF50 !important;
+}
+
+.input-wrapper.invalid input:focus,
+.input-wrapper.invalid textarea:focus {
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3);
+}
+
+.input-wrapper.valid input:focus,
+.input-wrapper.valid textarea:focus {
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+}
+
+/* Email validation icon */
+.input-wrapper[data-type="email"] {
+  position: relative;
+}
+
+.input-wrapper[data-type="email"]::after {
+  content: '';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: none;
+}
+
+.input-wrapper[data-type="email"].invalid::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff4444"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>');
+  display: block;
+}
+
+.input-wrapper[data-type="email"].valid::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234CAF50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>');
+  display: block;
+}
+
+/* Submit button states */
+.contact form .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: var(--disabled-color, #ccc) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact .heading {
+    font-size: 4.5rem;
+    margin-top: 4rem;
+  }
+  
+  .contact form input,
+  .contact form textarea {
+    padding: 2rem;
+    font-size: 1.6rem;
+  }
+  
+  .error-message,
+  .form-error {
+    font-size: 1.2rem;
+  }
+  
+  .input-wrapper[data-type="email"]::after {
+    right: 1rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 /* ====================================================
    FOOTER SECTION
 ==================================================== */
@@ -1164,6 +1313,187 @@ textarea:focus:invalid {
   margin-top: 2rem;
 }
 
+<<<<<<< HEAD
+=======
+.back-to-top {
+  width: 5rem;
+  height: 5rem;
+  background: var(--main-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--main-color-dark);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.back-to-top-icon {
+  width: 2rem;
+  height: 2rem;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 0;
+  }
+  
+  .copyright {
+    font-size: 1.4rem;
+  }
+  
+  .back-to-top {
+    width: 4.5rem;
+    height: 4.5rem;
+    bottom: 2rem;
+    right: 2rem;
+  }
+  
+  .back-to-top-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+/* Footer Animation Styles */
+.footer-interactive {
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-cursor-bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.footer-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: 
+        transform 0.1s ease-out,
+        width 0.3s ease-out,
+        height 0.3s ease-out,
+        opacity 0.5s ease-out;
+    opacity: 0;
+}
+
+.footer-bubble.active {
+    opacity: 0.8;
+    transition: opacity 0.1s ease-out;
+}
+
+/* Optional: Add this if you want the footer content to appear above bubbles */
+.footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Fixed Light Mode Footer Animation */
+body.light-mode .footer-interactive {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--second-bg-color); /* #f0f0f0 */
+}
+
+body.light-mode .footer-cursor-bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* More visible bubbles for light mode */
+body.light-mode .footer-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3); /* Increased opacity for visibility */
+    transform: translate(-50%, -50%);
+    transition: 
+        transform 0.1s ease-out,
+        width 0.3s ease-out,
+        height 0.3s ease-out,
+        opacity 0.5s ease-out;
+    opacity: 5; /* Increased opacity for visibility */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Added glow effect */
+}
+
+body.light-mode .footer-bubble.active {
+    opacity: 0.8; /* More visible when active */
+    transition: opacity 0.1s ease-out;
+}
+
+body.light-mode .footer-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer-interactive {
+    padding: 1rem 0;
+  }
+
+  .footer-bubble {
+    /* Smaller bubbles on mobile */
+    background: rgba(0, 128, 0, 0.25) !important;
+  }
+
+  .footer-bubble.active {
+    /* More visible on touch devices */
+    opacity: 0.9 !important;
+  }
+
+  .footer-links {
+    /* Stack links vertically on small screens */
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+/* Touch device detection */
+@media (hover: none) {
+  .footer-interactive {
+    /* Slightly taller footer for better touch targets */
+    min-height: 120px;
+  }
+
+  .footer-bubble {
+    /* Larger touch targets */
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 /* ====================================================
    CUSTOM SCROLLBAR
 ==================================================== */
@@ -1253,6 +1583,7 @@ textarea:focus:invalid {
   }
 }
 
+<<<<<<< HEAD
 @media (max-width: 768px) {
   section {
     padding: var(--mobile-section-padding);
@@ -1261,35 +1592,139 @@ textarea:focus:invalid {
 
   .header {
     padding: 2rem 5%;
+=======
+/* ====================================================
+   MOBILE RESPONSIVE STYLES (768px and below)
+==================================================== */
+@media (max-width: 768px) {
+  /* === Core Variables === */
+  :root {
+    --header-height: 7rem;
+  }
+
+  /* === Header & Navigation === */
+  .header {
+    padding: 1.5rem 5%;
+  }
+
+  .logo .logo-stack .sk-text {
+    font-size: 3rem;
+    letter-spacing: 3px;
+  }
+
+  #menu-icon {
+    position: absolute;
+    right: 15px;
+    top: 25px;
+    background: transparent;
+    width: auto;
+    height: auto;
+    padding: 0;
+  }
+
+  #menu-icon i.bx-menu {
+    color: var(--main-color);
+    font-size: 3.2rem;
+    text-shadow: 0 0 5px rgba(0,128,0,0.3);
+  }
+
+  .theme-toggle {
+    right: 70px;
+    top: 25px;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .navbar {
     width: 100%;
   }
 
+<<<<<<< HEAD
   .home-content h1 {
     font-size: 5rem;
+=======
+  .navbar.active {
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    border-top: 2px solid var(--main-color);
+  }
+
+  .navbar a {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  /* === Home Section === */
+  .home {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    gap: 3rem;
+    flex-direction: column-reverse;
+  }
+
+  .home-content {
+    text-align: center;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .home-content h1 {
+    font-size: 4.5rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .home-content h3,
   .typing-wrapper {
     font-size: 3rem;
+<<<<<<< HEAD
+=======
+    justify-content: center;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .home-content p {
     font-size: 1.4rem;
     max-width: 90%;
+<<<<<<< HEAD
   }
 
   .home-img img {
     width: 70vw;
     margin-top: 2rem;
+=======
+    margin: 1.5rem auto;
+  }
+
+  .home-img img {
+    width: 80vw;
+    max-width: 300px;
+  }
+
+  /* === Buttons === */
+  .btn-group {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    font-size: 1.4rem;
+    min-width: 120px;
+  }
+
+  /* === About Section === */
+  .about {
+    gap: 4rem;
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .about-content h2 {
     font-size: 4rem;
   }
 
+<<<<<<< HEAD
   .about-content p {
     font-size: 1.6rem;
   }
@@ -1318,12 +1753,50 @@ textarea:focus:invalid {
     width: 100%;
   }
 
+=======
+  .read-more-btn {
+    margin: 1.5rem auto 0;
+    width: fit-content;
+  }
+
+  /* === Skills/Projects === */
+  .skills-container,
+  .projects-box {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* === Footer === */
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   .footer ul {
     font-size: 1.6rem;
   }
 }
 
 /* ====================================================
+<<<<<<< HEAD
+=======
+   SMALL PHONE OPTIMIZATIONS (480px and below)
+==================================================== */
+@media (max-width: 480px) {
+  :root {
+    --header-height: 6rem;
+  }
+
+  .home-content h1 {
+    font-size: 3.8rem;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* Safari/iOS specific fixes */
+  .header {
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+  }
+}
+
+/* ====================================================
+>>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
    PRINT STYLES
 ==================================================== */
 @media print {

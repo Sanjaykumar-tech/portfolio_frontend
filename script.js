@@ -324,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .forEach(el => observer.observe(el));
 }
 
-// Enhanced Contact Form Handler
+// Enhanced Contact Form Handler with better error handling and UX
 function setupContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
@@ -332,15 +332,21 @@ function setupContactForm() {
   // Create error display element
   const errorDisplay = document.createElement('div');
   errorDisplay.className = 'form-error';
-  errorDisplay.style.display = 'none';
-  errorDisplay.style.color = '#ff3333';
-  errorDisplay.style.margin = '10px 0';
+  errorDisplay.style.cssText = `
+    display: none;
+    color: #ff3333;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffeeee;
+    border: 1px solid #ffcccc;
+  `;
   form.parentNode.insertBefore(errorDisplay, form.nextSibling);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const submitBtn = form.querySelector('input[type="submit"]');
-    const originalBtnText = submitBtn.value;
+    const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+    const originalBtnText = submitBtn.value || submitBtn.textContent;
 
     try {
       // Clear previous errors
@@ -349,30 +355,22 @@ function setupContactForm() {
       
       // Disable button during submission
       submitBtn.disabled = true;
-      submitBtn.value = "Sending...";
+      if (submitBtn.value) submitBtn.value = "Sending...";
+      if (submitBtn.textContent) submitBtn.textContent = "Sending...";
 
-      // Prepare form data
+      // Prepare form data with sanitization
       const formData = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        message: form.message.value.trim(),
-        phone: form.phone?.value.trim() || '',
-        subject: form.subject?.value.trim() || 'General Inquiry'
+        name: sanitizeInput(form.name.value.trim()),
+        email: sanitizeInput(form.email.value.trim()),
+        message: sanitizeInput(form.message.value.trim()),
+        phone: form.phone?.value.trim() ? sanitizeInput(form.phone.value.trim()) : '',
+        subject: form.subject?.value.trim() ? sanitizeInput(form.subject.value.trim()) : 'General Inquiry'
       };
 
       // Validation
-      if (!formData.name || !formData.email || !formData.message) {
-        throw new Error("Please fill in all required fields (name, email, message)");
-      }
-
-      // Email validation
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        throw new Error("Please enter a valid email address");
-      }
-
-      // Message length validation
-      if (formData.message.length > 1000) {
-        throw new Error("Message is too long (max 1000 characters)");
+      const validationErrors = validateFormData(formData);
+      if (validationErrors.length > 0) {
+        throw new Error(validationErrors.join('\n'));
       }
 
       // Send data to backend
@@ -391,8 +389,9 @@ function setupContactForm() {
         throw new Error(data.error || "Failed to send message. Please try again later.");
       }
 
-      // Success - redirect or show success message
-      window.location.href = "thank-you.html";
+      // Success - show success message and reset form
+      showSuccessMessage(form, "Message sent successfully!");
+      form.reset();
       
     } catch (err) {
       // Show error to user
@@ -402,177 +401,298 @@ function setupContactForm() {
       // Scroll to error for better UX
       errorDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
       
-      // Re-enable button
-      submitBtn.disabled = false;
-      submitBtn.value = originalBtnText;
-      
       // Log error for debugging
       console.error('Contact form error:', err);
       
+    } finally {
+      // Re-enable button
+      submitBtn.disabled = false;
+      if (submitBtn.value) submitBtn.value = originalBtnText;
+      if (submitBtn.textContent) submitBtn.textContent = originalBtnText;
     }
   });
+
+  // Helper functions
+  function sanitizeInput(input) {
+    return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function validateFormData(data) {
+    const errors = [];
+    if (!data.name) errors.push("Name is required");
+    if (!data.email) errors.push("Email is required");
+    if (!data.message) errors.push("Message is required");
+    if (data.name && data.name.length > 100) errors.push("Name is too long (max 100 characters)");
+    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errors.push("Please enter a valid email address");
+    }
+    if (data.message && data.message.length > 1000) {
+      errors.push("Message is too long (max 1000 characters)");
+    }
+    if (data.phone && data.phone.length > 20) {
+      errors.push("Phone number is too long (max 20 characters)");
+    }
+    if (data.subject && data.subject.length > 200) {
+      errors.push("Subject is too long (max 200 characters)");
+    }
+    return errors;
+  }
+
+  function showSuccessMessage(formElement, message) {
+    const successDisplay = document.createElement('div');
+    successDisplay.className = 'form-success';
+    successDisplay.style.cssText = `
+      display: block;
+      color: #00aa00;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: #eeffee;
+      border: 1px solid #ccffcc;
+    `;
+    successDisplay.textContent = message;
+    formElement.parentNode.insertBefore(successDisplay, formElement.nextSibling);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+      successDisplay.style.opacity = '0';
+      setTimeout(() => successDisplay.remove(), 500);
+    }, 5000);
+  }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', setupContactForm);
-
-// Ultra-Reliable Resume Download System
+// Ultra-Reliable Resume Download System with better fallbacks
 function setupCVDownload() {
-  const cvBtn = document.querySelector('a[href="Sanjaykumar_CV.pdf"]');
+  const cvBtn = document.querySelector('a[href*="Sanjaykumar_CV.pdf"], a[data-cv-download]');
   if (!cvBtn) return;
 
+  // Configuration
+  const GOOGLE_DRIVE_ID = '1Whdi90y-_KkYo4TkfP54epXrr6gHkzHo';
+  const FALLBACK_URL = cvBtn.href || `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_ID}`;
+  const GDRIVE_LINKS = [
+    `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_ID}`,
+    `https://drive.usercontent.google.com/download?id=${GOOGLE_DRIVE_ID}&export=download&authuser=0`,
+    FALLBACK_URL
+  ];
+
   cvBtn.addEventListener('click', async (e) => {
-    // Configuration
-    const GOOGLE_DRIVE_ID = '1Whdi90y-_KkYo4TkfP54epXrr6gHkzHo';
-    const GDRIVE_LINKS = [
-      `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_ID}`,
-      `https://drive.usercontent.google.com/download?id=${GOOGLE_DRIVE_ID}&export=download&authuser=0`
-    ];
-    const originalText = cvBtn.textContent;
+    const originalHTML = cvBtn.innerHTML;
     
     // UI Feedback
-    cvBtn.textContent = 'Preparing Download...';
-    cvBtn.disabled = true;
+    cvBtn.innerHTML = '<span class="spinner"></span> Preparing Download...';
+    cvBtn.classList.add('loading');
     e.preventDefault();
 
     // Try all methods sequentially
     for (let i = 0; i < GDRIVE_LINKS.length; i++) {
       try {
-        console.log(`Attempting method ${i+1}`);
-        await attemptDownload(GDRIVE_LINKS[i]);
-        cvBtn.textContent = '✓ Download Started';
-        setTimeout(() => { cvBtn.textContent = originalText; }, 2000);
-        return; // Success - exit
+        console.log(`Attempting download method ${i+1}`);
+        const success = await attemptDownload(GDRIVE_LINKS[i]);
+        if (success) {
+          cvBtn.innerHTML = '<span class="tick">✓</span> Download Started';
+          setTimeout(() => { cvBtn.innerHTML = originalHTML; cvBtn.classList.remove('loading'); }, 2000);
+          return; // Success - exit
+        }
       } catch (error) {
         console.warn(`Method ${i+1} failed:`, error);
         if (i === GDRIVE_LINKS.length - 1) {
           // All methods failed - show options
-          showDownloadOptions(GOOGLE_DRIVE_ID);
+          showDownloadOptions(GOOGLE_DRIVE_ID, FALLBACK_URL);
         }
       }
     }
     
-    cvBtn.disabled = false;
+    cvBtn.innerHTML = originalHTML;
+    cvBtn.classList.remove('loading');
   });
 
-  // Download attempt handler
+  // Improved download attempt handler
   function attemptDownload(url) {
     return new Promise((resolve, reject) => {
-      // Method 1: New tab approach
-      const tab = window.open(url, '_blank');
-      if (tab) {
-        tab.focus();
-        setTimeout(resolve, 1000);
-        return;
-      }
-
-      // Method 2: Iframe approach
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = url;
-      iframe.onload = () => {
+      // Method 1: Direct download (works in most modern browsers)
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'Sanjaykumar_Resume.pdf';
+      anchor.style.display = 'none';
+      document.body.appendChild(anchor);
+      
+      anchor.addEventListener('click', () => {
         setTimeout(() => {
-          document.body.removeChild(iframe);
-          resolve();
+          document.body.removeChild(anchor);
+          resolve(true);
         }, 1000);
-      };
-      iframe.onerror = reject;
-      document.body.appendChild(iframe);
+      });
+      
+      anchor.addEventListener('error', (err) => {
+        document.body.removeChild(anchor);
+        reject(err);
+      });
+      
+      // Trigger the download
+      anchor.click();
 
       // Timeout fallback
-      setTimeout(() => reject(new Error('Download timeout')), 5000);
+      setTimeout(() => {
+        document.body.removeChild(anchor);
+        reject(new Error('Download timeout'));
+      }, 5000);
     });
   }
 
-  // Manual options modal
-  function showDownloadOptions(driveId) {
+  // Enhanced manual options modal
+  function showDownloadOptions(driveId, fallbackUrl) {
+    // Check if modal already exists
+    if (document.getElementById('downloadOptionsModal')) return;
+    
     const modal = document.createElement('div');
+    modal.id = 'downloadOptionsModal';
     modal.style.cssText = `
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.9);
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease-out;
     `;
     
     modal.innerHTML = `
-      <div style="
-        background: white;
+      <div class="download-modal-content" style="
+        background: #ffffff;
         padding: 2rem;
-        border-radius: 8px;
+        border-radius: 12px;
         max-width: 90%;
         width: 500px;
         text-align: center;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        position: relative;
       ">
-        <h3 style="color: #ff4444; margin-top: 0;">Download Options</h3>
-        <p>Please select a download method:</p>
+        <button class="close-modal" style="
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #666;
+        ">×</button>
         
-        <div style="margin: 1.5rem 0; display: grid; gap: 1rem;">
-          <a href="https://drive.google.com/uc?export=download&id=${driveId}" 
+        <h3 style="color: #2c3e50; margin-top: 0;">Download Options</h3>
+        <p style="color: #7f8c8d;">Please select a download method:</p>
+        
+        <div class="download-options" style="
+          margin: 1.5rem 0; 
+          display: grid; 
+          gap: 1rem;
+          grid-template-columns: 1fr;
+        ">
+          <a href="${fallbackUrl}" 
+             class="download-btn drive-download"
              target="_blank"
              style="
-               padding: 1rem;
-               background: #4CAF50;
+               padding: 12px;
+               background: #27ae60;
                color: white;
-               border-radius: 4px;
+               border-radius: 6px;
                text-decoration: none;
                font-weight: bold;
+               transition: all 0.2s;
              ">
-            Download Now (Google Drive)
+            <i class="icon-download"></i> Direct Download
           </a>
           
-          <button onclick="
-            navigator.clipboard.writeText('https://drive.google.com/file/d/${driveId}/view');
-            alert('Link copied to clipboard!');
-          " style="
-            padding: 1rem;
-            background: #2196F3;
+          <button class="copy-link-btn" style="
+            padding: 12px;
+            background: #3498db;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
           ">
-            Copy Download Link
+            <i class="icon-copy"></i> Copy Download Link
           </button>
           
-          <a href="mailto:?subject=Resume Request&body=Please send me Sanjaykumar's resume PDF" 
+          <a href="mailto:sanjaykumar.techdev@gmail.com?subject=Resume Request&body=Please send me Sanjaykumar's resume PDF" 
+             class="email-request-btn"
              style="
-               padding: 1rem;
-               background: #9C27B0;
+               padding: 12px;
+               background: #9b59b6;
                color: white;
-               border-radius: 4px;
+               border-radius: 6px;
                text-decoration: none;
+               font-weight: bold;
+               transition: all 0.2s;
              ">
-            Request via Email
+            <i class="icon-email"></i> Request via Email
           </a>
         </div>
-        
-        <button onclick="this.parentElement.parentElement.remove()" 
-                style="
-                  padding: 0.5rem 1rem;
-                  background: #ff4444;
-                  color: white;
-                  border: none;
-                  border-radius: 4px;
-                  cursor: pointer;
-                ">
-          Close
-        </button>
       </div>
+      <style>
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .download-btn:hover, .copy-link-btn:hover, .email-request-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .close-modal:hover {
+          color: #e74c3c;
+        }
+      </style>
     `;
     
+    // Add event listeners
+    modal.querySelector('.close-modal').addEventListener('click', () => {
+      modal.style.animation = 'fadeOut 0.3s ease-out';
+      setTimeout(() => modal.remove(), 300);
+    });
+    
+    modal.querySelector('.copy-link-btn').addEventListener('click', () => {
+      const downloadLink = `https://drive.google.com/file/d/${driveId}/view?usp=sharing`;
+      navigator.clipboard.writeText(downloadLink)
+        .then(() => {
+          const btn = modal.querySelector('.copy-link-btn');
+          btn.innerHTML = '<i class="icon-check"></i> Link Copied!';
+          btn.style.background = '#2ecc71';
+          setTimeout(() => {
+            btn.innerHTML = '<i class="icon-copy"></i> Copy Download Link';
+            btn.style.background = '#3498db';
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Failed to copy:', err);
+          alert('Failed to copy link. Please try again.');
+        });
+    });
+    
     document.body.appendChild(modal);
+    
+    // Add fadeOut animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
   }
 }
 
-// Initialize
-document.addEventListener("DOMContentLoaded", setupCVDownload);
+// Initialize both systems when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  setupContactForm();
+  setupCVDownload();
+});
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {

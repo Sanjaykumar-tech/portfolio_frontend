@@ -1,128 +1,4 @@
 /* ====================================================
-<<<<<<< HEAD
-   ENHANCED PORTFOLIO SCRIPT
-==================================================== */
-
-// Mobile Navbar Toggle
-const menuIcon = document.querySelector('#menu-icon');
-const navbar = document.querySelector('.navbar');
-
-menuIcon.onclick = () => {
-  menuIcon.classList.toggle('active');
-  navbar.classList.toggle('active');
-  document.body.classList.toggle('no-scroll');
-};
-
-// Close menu when clicking a link
-document.querySelectorAll('.navbar a').forEach(link => {
-  link.addEventListener('click', () => {
-    menuIcon.classList.remove('active');
-    navbar.classList.remove('active');
-    document.body.classList.remove('no-scroll');
-  });
-});
-
-// Theme Toggle
-const themeSwitcher = document.getElementById('themeSwitcher');
-
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-}
-
-// Initialize theme
-function initTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-  }
-}
-
-themeSwitcher.addEventListener('click', toggleTheme);
-initTheme();
-
-// Typing Animation
-const text = ["Web Developer", "Frontend Developer", "Creative Coder", "Web Designer"];
-let index = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typeSpan = document.querySelector(".typewriter-text");
-
-function typeEffect() {
-  const currentText = text[index];
-  
-  if (isDeleting) {
-    charIndex--;
-  } else {
-    charIndex++;
-  }
-
-  typeSpan.textContent = currentText.substring(0, charIndex);
-
-  if (!isDeleting && charIndex === currentText.length) {
-    isDeleting = true;
-    setTimeout(typeEffect, 1500);
-  } else if (isDeleting && charIndex === 0) {
-    isDeleting = false;
-    index = (index + 1) % text.length;
-    setTimeout(typeEffect, 500);
-  } else {
-    setTimeout(typeEffect, isDeleting ? 60 : 120);
-  }
-}
-
-// Read More/Less Functionality
-document.addEventListener("DOMContentLoaded", () => {
-    const readMoreContainers = document.querySelectorAll('[data-readmore]');
-    
-    readMoreContainers.forEach(container => {
-        const btn = container.querySelector('.read-more-btn');
-        const content = container.querySelector('.more-text');
-        const dots = container.querySelector('#dots');
-        
-        // Initialize ARIA attributes
-        btn.setAttribute('aria-expanded', 'false');
-        content.setAttribute('aria-hidden', 'true');
-        
-        btn.addEventListener('click', () => {
-            const isExpanding = !content.classList.contains('show');
-            
-            if (isExpanding) {
-                // Calculate height before expanding
-                content.style.display = 'block';
-                const height = content.scrollHeight;
-                content.style.display = '';
-                content.style.setProperty('--dynamic-height', `${height}px`);
-            }
-            
-            // Toggle visibility
-            content.classList.toggle('show');
-            const isVisible = content.classList.contains('show');
-            
-            // Update UI
-            btn.setAttribute('aria-expanded', isVisible);
-            btn.textContent = isVisible ? 'Read Less' : 'Read More';
-            if (dots) dots.style.display = isVisible ? 'none' : 'inline';
-            
-            // Focus management for screen readers
-            if (isVisible) {
-                content.setAttribute('aria-hidden', 'false');
-                content.tabIndex = 0;
-            } else {
-                content.setAttribute('aria-hidden', 'true');
-                content.tabIndex = -1;
-            }
-        });
-    });
-});
-
-
-
-// Scroll Animation
-const animateOnScroll = () => {
-  const elements = document.querySelectorAll('.skill-box, .project-card, .about-img, .home-img');
-  
-=======
    ENHANCED PORTFOLIO SCRIPT (Optimized)
 ==================================================== */
 
@@ -243,7 +119,6 @@ function setupReadMore() {
 
 // Scroll Animations
 function setupScrollAnimations() {
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -253,73 +128,6 @@ function setupScrollAnimations() {
     });
   }, { threshold: 0.1 });
 
-<<<<<<< HEAD
-  elements.forEach(el => observer.observe(el));
-};
-
-// Enhanced Contact Form
-document.getElementById("contactForm")?.addEventListener("submit", async function(e) {
-  e.preventDefault();
-  
-  const submitBtn = this.querySelector('input[type="submit"]');
-  submitBtn.disabled = true;
-  submitBtn.value = "Sending...";
-  
-  try {
-    const formData = {
-      name: this.name.value.trim(),
-      email: this.email.value.trim(),
-      phone: this.phone.value.trim(),
-      subject: this.subject.value.trim(),
-      message: this.message.value.trim()
-    };
-
-    // Client-side validation
-    if (!formData.name || !formData.email || !formData.message) {
-      throw new Error("Please fill in all required fields");
-    }
-
-    const res = await fetch("https://portfolio-backend-1-72na.onrender.com/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || "Failed to send message");
-    }
-
-    window.location.href = "thank-you.html";
-    
-  } catch (err) {
-    alert(err.message);
-    submitBtn.disabled = false;
-    submitBtn.value = "Send Message";
-  }
-});
-
-// Track CV downloads
-document.querySelector('a[href="sanjaykumar CV.pdf"]')?.addEventListener('click', () => {
-  console.log('CV downloaded');
-  // Can be replaced with actual analytics tracking
-});
-
-// Initialize everything when DOM loads
-document.addEventListener("DOMContentLoaded", () => {
-  typeEffect();
-  animateOnScroll();
-  
-  // Close mobile menu when clicking a link
-  document.querySelectorAll('.navbar a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuIcon.classList.remove('bx-x');
-      navbar.classList.remove('active');
-    });
-  });
-=======
   document.querySelectorAll('.skill-box, .project-card, .about-img, .home-img')
     .forEach(el => observer.observe(el));
 }
@@ -479,7 +287,7 @@ function setupCVDownload() {
     const originalHTML = cvBtn.innerHTML;
     
     // UI Feedback
-    cvBtn.innerHTML = '<span class="spinner"></span> Preparing Download...';
+    cvBtn.innerHTML = '<span class="spinner">⏳</span> Preparing Download...';
     cvBtn.classList.add('loading');
     e.preventDefault();
 
@@ -490,7 +298,10 @@ function setupCVDownload() {
         const success = await attemptDownload(GDRIVE_LINKS[i]);
         if (success) {
           cvBtn.innerHTML = '<span class="tick">✓</span> Download Started';
-          setTimeout(() => { cvBtn.innerHTML = originalHTML; cvBtn.classList.remove('loading'); }, 2000);
+          setTimeout(() => { 
+            cvBtn.innerHTML = originalHTML; 
+            cvBtn.classList.remove('loading'); 
+          }, 2000);
           return; // Success - exit
         }
       } catch (error) {
@@ -498,23 +309,26 @@ function setupCVDownload() {
         if (i === GDRIVE_LINKS.length - 1) {
           // All methods failed - show options
           showDownloadOptions(GOOGLE_DRIVE_ID, FALLBACK_URL);
+          cvBtn.innerHTML = originalHTML;
+          cvBtn.classList.remove('loading');
         }
       }
     }
-    
-    cvBtn.innerHTML = originalHTML;
-    cvBtn.classList.remove('loading');
   });
 
   // Improved download attempt handler
   function attemptDownload(url) {
     return new Promise((resolve, reject) => {
-      // Method 1: Direct download (works in most modern browsers)
+      // Method 1: Direct download
       const anchor = document.createElement('a');
       anchor.href = url;
       anchor.download = 'Sanjaykumar_Resume.pdf';
       anchor.style.display = 'none';
       document.body.appendChild(anchor);
+      
+      // Method 2: Iframe fallback
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
       
       anchor.addEventListener('click', () => {
         setTimeout(() => {
@@ -523,17 +337,22 @@ function setupCVDownload() {
         }, 1000);
       });
       
-      anchor.addEventListener('error', (err) => {
+      anchor.addEventListener('error', () => {
         document.body.removeChild(anchor);
-        reject(err);
+        iframe.src = url;
+        document.body.appendChild(iframe);
+        setTimeout(() => {
+          document.body.removeChild(iframe);
+          resolve(true);
+        }, 2000);
       });
       
-      // Trigger the download
       anchor.click();
 
       // Timeout fallback
       setTimeout(() => {
         document.body.removeChild(anchor);
+        if (iframe.parentNode) document.body.removeChild(iframe);
         reject(new Error('Download timeout'));
       }, 5000);
     });
@@ -541,7 +360,6 @@ function setupCVDownload() {
 
   // Enhanced manual options modal
   function showDownloadOptions(driveId, fallbackUrl) {
-    // Check if modal already exists
     if (document.getElementById('downloadOptionsModal')) return;
     
     const modal = document.createElement('div');
@@ -562,8 +380,8 @@ function setupCVDownload() {
     `;
     
     modal.innerHTML = `
-      <div class="download-modal-content" style="
-        background: #ffffff;
+      <div style="
+        background: #fff;
         padding: 2rem;
         border-radius: 12px;
         max-width: 90%;
@@ -574,8 +392,8 @@ function setupCVDownload() {
       ">
         <button class="close-modal" style="
           position: absolute;
-          top: 10px;
-          right: 10px;
+          top: 12px;
+          right: 12px;
           background: none;
           border: none;
           font-size: 1.5rem;
@@ -584,17 +402,16 @@ function setupCVDownload() {
         ">×</button>
         
         <h3 style="color: #2c3e50; margin-top: 0;">Download Options</h3>
-        <p style="color: #7f8c8d;">Please select a download method:</p>
+        <p style="color: #7f8c8d; margin-bottom: 1.5rem;">Choose your preferred method:</p>
         
-        <div class="download-options" style="
+        <div style="
           margin: 1.5rem 0; 
           display: grid; 
           gap: 1rem;
           grid-template-columns: 1fr;
         ">
           <a href="${fallbackUrl}" 
-             class="download-btn drive-download"
-             target="_blank"
+             download="Sanjaykumar_Resume.pdf"
              style="
                padding: 12px;
                background: #27ae60;
@@ -602,9 +419,37 @@ function setupCVDownload() {
                border-radius: 6px;
                text-decoration: none;
                font-weight: bold;
-               transition: all 0.2s;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               gap: 8px;
              ">
-            <i class="icon-download"></i> Direct Download
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Direct Download
+          </a>
+          
+          <a href="https://drive.google.com/file/d/${driveId}/view" 
+             target="_blank"
+             style="
+               padding: 12px;
+               background: #4285F4;
+               color: white;
+               border-radius: 6px;
+               text-decoration: none;
+               font-weight: bold;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               gap: 8px;
+             ">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path fill="white" d="M7.5 7.5h9v9h-9zM5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+            </svg>
+            Open in Google Drive
           </a>
           
           <button class="copy-link-btn" style="
@@ -615,13 +460,19 @@ function setupCVDownload() {
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
           ">
-            <i class="icon-copy"></i> Copy Download Link
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+            </svg>
+            Copy Link
           </button>
           
           <a href="mailto:sanjaykumar.techdev@gmail.com?subject=Resume Request&body=Please send me Sanjaykumar's resume PDF" 
-             class="email-request-btn"
              style="
                padding: 12px;
                background: #9b59b6;
@@ -629,73 +480,79 @@ function setupCVDownload() {
                border-radius: 6px;
                text-decoration: none;
                font-weight: bold;
-               transition: all 0.2s;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               gap: 8px;
              ">
-            <i class="icon-email"></i> Request via Email
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Request via Email
           </a>
         </div>
       </div>
       <style>
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .download-btn:hover, .copy-link-btn:hover, .email-request-btn:hover {
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        
+        #downloadOptionsModal a:hover,
+        #downloadOptionsModal button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        
         .close-modal:hover {
           color: #e74c3c;
         }
       </style>
     `;
-    
-    // Add event listeners
+
+    // Event listeners
     modal.querySelector('.close-modal').addEventListener('click', () => {
       modal.style.animation = 'fadeOut 0.3s ease-out';
       setTimeout(() => modal.remove(), 300);
     });
-    
+
     modal.querySelector('.copy-link-btn').addEventListener('click', () => {
-      const downloadLink = `https://drive.google.com/file/d/${driveId}/view?usp=sharing`;
-      navigator.clipboard.writeText(downloadLink)
+      const link = `https://drive.google.com/file/d/${driveId}/view?usp=sharing`;
+      navigator.clipboard.writeText(link)
         .then(() => {
           const btn = modal.querySelector('.copy-link-btn');
-          btn.innerHTML = '<i class="icon-check"></i> Link Copied!';
+          btn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            Copied!
+          `;
           btn.style.background = '#2ecc71';
           setTimeout(() => {
-            btn.innerHTML = '<i class="icon-copy"></i> Copy Download Link';
+            btn.innerHTML = `
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+              </svg>
+              Copy Link
+            `;
             btn.style.background = '#3498db';
           }, 2000);
         })
         .catch(err => {
-          console.error('Failed to copy:', err);
-          alert('Failed to copy link. Please try again.');
+          alert('Failed to copy. Please try manually.');
+          console.error('Copy failed:', err);
         });
     });
-    
+
     document.body.appendChild(modal);
-    
-    // Add fadeOut animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeOut {
-        from { opacity: 1; }
-        to { opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
+    document.body.style.overflow = 'hidden';
   }
 }
 
-// Initialize both systems when DOM is loaded
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  setupContactForm();
   setupCVDownload();
-});
-
-// Initialize
-document.addEventListener("DOMContentLoaded", () => {
+  // Your other initialization functions
   setupMobileMenu();
   setupTheme();
   initTypeEffect();
@@ -806,5 +663,4 @@ document.addEventListener('DOMContentLoaded', function() {
             iterations: Infinity
         });
     }
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 });

@@ -1037,11 +1037,7 @@ body:not(.light-mode) .project-card:hover .btn {
 .contact .heading {
   font-size: 6rem;
   color: var(--text-color);
-<<<<<<< HEAD
-  margin-top: 6rem;
-=======
   margin: 6rem 0 3rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -1052,24 +1048,13 @@ body:not(.light-mode) .project-card:hover .btn {
   align-items: center;
   max-width: 800px;
   margin: 0 auto;
-<<<<<<< HEAD
-  gap: 2rem;
-=======
   gap: 3rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .input-group {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-<<<<<<< HEAD
-  gap: 2rem;
-}
-
-.input-box {
-  width: 100%;
-=======
   gap: 2.5rem;
 }
 
@@ -1077,7 +1062,6 @@ body:not(.light-mode) .project-card:hover .btn {
   display: flex;
   flex-direction: column;
   gap: 2rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .input-group-2 {
@@ -1093,21 +1077,13 @@ body:not(.light-mode) .project-card:hover .btn {
   background-color: var(--card-bg);
   border-radius: var(--border-radius);
   border: 2px solid var(--main-color);
-<<<<<<< HEAD
-  margin: 1.5rem 0;
-  resize: none;
-=======
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   transition: var(--transition);
 }
 
 .contact form textarea {
   min-height: 200px;
-<<<<<<< HEAD
-=======
   resize: none;
   margin-bottom: 1.5rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 }
 
 .contact form input:focus,
@@ -1116,19 +1092,6 @@ body:not(.light-mode) .project-card:hover .btn {
   box-shadow: 0 0 0 2px var(--main-color);
 }
 
-<<<<<<< HEAD
-/* Form validation */
-input:invalid,
-textarea:invalid {
-  border-color: #ff4444;
-}
-
-input:focus:invalid,
-textarea:focus:invalid {
-  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3);
-}
-
-=======
 /* ===== ENHANCED VALIDATION STYLES ===== */
 .input-wrapper {
   position: relative;
@@ -1249,7 +1212,6 @@ textarea:focus:invalid {
   }
 }
 
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 /* ====================================================
    FOOTER SECTION
 ==================================================== */
@@ -1313,8 +1275,6 @@ textarea:focus:invalid {
   margin-top: 2rem;
 }
 
-<<<<<<< HEAD
-=======
 .back-to-top {
   width: 5rem;
   height: 5rem;
@@ -1493,7 +1453,6 @@ body.light-mode .footer-content {
   }
 }
 
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
 /* ====================================================
    CUSTOM SCROLLBAR
 ==================================================== */
@@ -1583,16 +1542,6 @@ body.light-mode .footer-content {
   }
 }
 
-<<<<<<< HEAD
-@media (max-width: 768px) {
-  section {
-    padding: var(--mobile-section-padding);
-    min-height: auto;
-  }
-
-  .header {
-    padding: 2rem 5%;
-=======
 /* ====================================================
    MOBILE RESPONSIVE STYLES (768px and below)
 ==================================================== */
@@ -1631,17 +1580,12 @@ body.light-mode .footer-content {
   .theme-toggle {
     right: 70px;
     top: 25px;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .navbar {
     width: 100%;
   }
 
-<<<<<<< HEAD
-  .home-content h1 {
-    font-size: 5rem;
-=======
   .navbar.active {
     left: 0;
     transform: none;
@@ -1670,28 +1614,17 @@ body.light-mode .footer-content {
 
   .home-content h1 {
     font-size: 4.5rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .home-content h3,
   .typing-wrapper {
     font-size: 3rem;
-<<<<<<< HEAD
-=======
     justify-content: center;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .home-content p {
     font-size: 1.4rem;
     max-width: 90%;
-<<<<<<< HEAD
-  }
-
-  .home-img img {
-    width: 70vw;
-    margin-top: 2rem;
-=======
     margin: 1.5rem auto;
   }
 
@@ -1717,43 +1650,12 @@ body.light-mode .footer-content {
   /* === About Section === */
   .about {
     gap: 4rem;
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   }
 
   .about-content h2 {
     font-size: 4rem;
   }
 
-<<<<<<< HEAD
-  .about-content p {
-    font-size: 1.6rem;
-  }
-
-  .about-img img {
-    width: 70vw;
-  }
-
-  .skills .heading,
-  .projects .heading,
-  .contact .heading {
-    font-size: 4rem;
-  }
-
-  .skills-container,
-  .projects-box {
-    grid-template-columns: 1fr;
-  }
-
-  .btn-group {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-=======
   .read-more-btn {
     margin: 1.5rem auto 0;
     width: fit-content;
@@ -1767,15 +1669,12 @@ body.light-mode .footer-content {
   }
 
   /* === Footer === */
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
   .footer ul {
     font-size: 1.6rem;
   }
 }
 
 /* ====================================================
-<<<<<<< HEAD
-=======
    SMALL PHONE OPTIMIZATIONS (480px and below)
 ==================================================== */
 @media (max-width: 480px) {
@@ -1796,7 +1695,6 @@ body.light-mode .footer-content {
 }
 
 /* ====================================================
->>>>>>> 0e6c88ff6f3bc68f5ef8cc5683c6ca45559e5740
    PRINT STYLES
 ==================================================== */
 @media print {

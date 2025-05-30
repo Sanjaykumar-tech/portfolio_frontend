@@ -1,0 +1,229 @@
+/* ====================================================
+   THANK YOU PAGE STYLES
+==================================================== */
+
+:root {
+  --primary-color: #00ff88;
+  --primary-dark: #00cc66;
+  --secondary-color: #006644;
+  --bg-color: #000;
+  --text-color: #00ff88;
+  --text-light: #aaffdd;
+  --shadow-color: rgba(0, 255, 136, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.thank-you-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.thank-you-box {
+  text-align: center;
+  padding: 3rem;
+  border-radius: 16px;
+  background: rgba(0, 10, 5, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 30px var(--shadow-color);
+  animation: fadeIn 0.8s ease-out;
+  transform-style: preserve-3d;
+  border: 1px solid var(--secondary-color);
+}
+
+.checkmark-animation {
+  margin: 0 auto 2rem;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 4;
+  stroke: var(--primary-color);
+  stroke-miterlimit: 10;
+  box-shadow: inset 0 0 0 var(--shadow-color);
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 4;
+  stroke-miterlimit: 10;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.animate .checkmark__circle {
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.animate .checkmark__check {
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.thank-you-box h1 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--shadow-color);
+}
+
+.thank-you-box p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  margin-bottom: 2.5rem;
+  color: var(--text-light);
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: #000;
+  padding: 12px 28px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 0 15px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px var(--shadow-color);
+}
+
+.btn.secondary {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
+  box-shadow: none;
+}
+
+.btn.secondary:hover {
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.btn-icon {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .thank-you-box {
+    padding: 2rem;
+    width: 90%;
+  }
+  
+  .checkmark-animation {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-you-box {
+    padding: 1.5rem;
+  }
+  
+  .thank-you-box p {
+    max-width: 100%;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .thank-you-box {
+    animation: none;
+  }
+  
+  .checkmark__circle,
+  .checkmark__check {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  
+  .btn:hover {
+    transform: none;
+  }
+}

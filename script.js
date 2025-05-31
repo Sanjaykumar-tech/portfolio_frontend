@@ -182,7 +182,7 @@ function setupContactForm() {
       }
 
       // Send data to backend
-      const res = await fetch("https://portfolio-backend-wivk.onrender.com/send", {
+      const res = await fetch("https://portfolio-backend-imw6.onrender.com/send", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

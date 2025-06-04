@@ -102,6 +102,7 @@ function setupContactForm() {
       form.reset();
       window.location.href = "thank-you.html";
     } catch (error) {
+      console.error("Contact form error:", error);
       showNotification(error.message, "error");
     } finally {
       setTimeout(() => {

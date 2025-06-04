@@ -100,6 +100,7 @@ function setupContactForm() {
 
       showNotification("Message sent successfully!", "success");
       form.reset();
+      window.location.href = "thank-you.html";
     } catch (error) {
       showNotification(error.message, "error");
     } finally {

@@ -196,13 +196,56 @@ body {
   }
 }
 
+/* === Mobile (480px and below) === */
 @media (max-width: 480px) {
+  body {
+    padding: 1rem;
+  }
+  
   .thank-you-box {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+  
+  .checkmark-animation {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
   }
   
   .thank-you-box p {
     max-width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+/* === Small Mobile (360px and below) === */
+@media (max-width: 360px) {
+  .thank-you-box {
+    padding: 1.5rem 1rem;
+  }
+  
+  .checkmark-animation {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .thank-you-box h1 {
+    font-size: 1.8rem;
+  }
+  
+  .thank-you-box p {
+    font-size: 1rem;
   }
 }
 
@@ -225,5 +268,23 @@ body {
   
   .btn:hover {
     transform: none;
+  }
+}
+
+/* === Print Styles === */
+@media print {
+  .thank-you-box {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+  
+  .checkmark {
+    stroke: black !important;
+  }
+  
+  .btn {
+    display: none !important;
   }
 }

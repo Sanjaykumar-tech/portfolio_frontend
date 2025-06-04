@@ -94,6 +94,27 @@
       setTimeout(() => {
         document.querySelector('.checkmark-animation').classList.add('animate');
       }, 100);
+
+      // NEW: Add Send Another functionality 
+      document.querySelector('a.btn.secondary[href="#contact"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Reset form (assuming ID is 'contact-form')
+        const form = document.getElementById('contact-form');
+        if (form) {
+          form.reset();
+          form.scrollIntoView({ behavior: 'smooth' });
+          
+          // Optional: Focus first field
+          const firstInput = form.querySelector('input, textarea, select');
+          if (firstInput) firstInput.focus();
+        }
+        
+        // Optional: Re-trigger confetti
+        if (!mediaQuery || !mediaQuery.matches) {
+          fireConfetti();
+        }
+      });
     });
   </script>
 </body>

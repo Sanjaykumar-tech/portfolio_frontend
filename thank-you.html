@@ -50,122 +50,108 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Enhanced confetti with different effects
-      function fireConfetti() {
-        const end = Date.now() + 2000;
-        const colors = ['#00ff88', '#00cc66', '#ffffff'];
-        
-        function frame() {
-          confetti({
-            particleCount: 3,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: colors
-          });
-          confetti({
-            particleCount: 3,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: colors
-          });
-          
-          if (Date.now() < end) {
-            requestAnimationFrame(frame);
-          }
-        }
-        
-        // Initial burst
+    // Audio initialization
+    const successSound = new Audio('audio/success.mp3');
+    successSound.preload = 'auto';
+    successSound.volume = 0.7; // 70% volume
+
+    // Play sound function with autoplay handling
+    function playSuccessSound() {
+      successSound.currentTime = 0;
+      successSound.play().catch(e => {
+        console.log("Audio play blocked, adding fallback");
+        // Fallback: Enable audio on next click
+        document.body.addEventListener('click', function enableAudio() {
+          successSound.play().then(() => successSound.pause());
+          document.body.removeEventListener('click', enableAudio);
+        }, { once: true });
+      });
+    }
+
+    // Your existing confetti function
+    function fireConfetti() {
+      const end = Date.now() + 2000;
+      const colors = ['#00ff88', '#00cc66', '#ffffff'];
+      
+      function frame() {
         confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { y: 0.6 }
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
         });
         
-        // Follow-up animation
-        setTimeout(frame, 300);
-      }
-
-      // Check for reduced motion preference
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (!mediaQuery || !mediaQuery.matches) {
-        setTimeout(fireConfetti, 500);
-      }
-
-      // Add animation class after load
-      setTimeout(() => {
-        document.querySelector('.checkmark-animation').classList.add('animate');
-      }, 100);
-
-      // NEW: Add Send Another functionality 
-      document.querySelector('a.btn.secondary[href="#contact"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Reset form (assuming ID is 'contact-form')
-        const form = document.getElementById('contact-form');
-        if (form) {
-          form.reset();
-          form.scrollIntoView({ behavior: 'smooth' });
-          
-          // Optional: Focus first field
-          const firstInput = form.querySelector('input, textarea, select');
-          if (firstInput) firstInput.focus();
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
         }
-        
-        // Optional: Re-trigger confetti
-        if (!mediaQuery || !mediaQuery.matches) {
-          fireConfetti();
-        }
+      }
+      
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
       });
-
-      // Play success sound
-  function playSuccessSound() {
-    const sound = document.getElementById('successSound');
-    if (sound) {
-      sound.currentTime = 0; // Rewind to start
-      sound.play().catch(e => console.log("Audio play prevented:", e));
+      
+      setTimeout(frame, 300);
     }
-  }
 
-  // Wait for DOM to load
-  document.addEventListener('DOMContentLoaded', function() {
-    // Form submission handler
+    // Check for reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const motionAllowed = !mediaQuery || !mediaQuery.matches;
+
+    // Form submission handler (add this to your form)
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
       contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        // Your form processing logic...
         
-        // On successful submission:
+        // On success:
         playSuccessSound();
-        window.location.href = 'thank-you.html'; // Or show thank-you message
+        if (motionAllowed) {
+          setTimeout(fireConfetti, 300);
+        }
+        // window.location.href = 'thank-you.html'; // Uncomment if redirecting
       });
     }
 
-    // Send Another button functionality
-    const sendAnotherBtn = document.getElementById('send-another');
-    if (sendAnotherBtn) {
-      sendAnotherBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Reset form
-        const form = document.getElementById('contact-form');
-        if (form) {
-          form.reset();
-          form.scrollIntoView({ behavior: 'smooth' });
-          
-          // Focus first input field
-          const firstInput = form.querySelector('input, textarea');
-          if (firstInput) firstInput.focus();
-        }
-        
-        // Replay sound if needed
-        playSuccessSound();
-      });
-    }
+    // Your existing Send Another button
+    document.querySelector('a.btn.secondary[href="#contact"]').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const form = document.getElementById('contact-form');
+      if (form) {
+        form.reset();
+        form.scrollIntoView({ behavior: 'smooth' });
+        form.querySelector('input, textarea, select')?.focus();
+      }
+      
+      playSuccessSound();
+      if (motionAllowed) {
+        fireConfetti();
+      }
+    });
+
+    // Animation initialization
+    setTimeout(() => {
+      document.querySelector('.checkmark-animation')?.classList.add('animate');
+    }, 100);
+
+    // Prime audio on first click
+    document.body.addEventListener('click', function initAudio() {
+      successSound.play().then(() => successSound.pause());
+      document.body.removeEventListener('click', initAudio);
+    }, { once: true });
   });
-});
-  </script>
+</script>
 </body>
 </html>

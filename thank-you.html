@@ -39,6 +39,9 @@
           <span class="btn-icon">✉️</span> Send Another
         </a>
       </div>
+      <audio id="successSound" preload="auto">
+         <source src="audio/success.mp3.mp3" type="audio/mpeg">
+      </audio>
     </div>
   </main>
 
@@ -115,7 +118,54 @@
           fireConfetti();
         }
       });
-    });
+
+      // Play success sound
+  function playSuccessSound() {
+    const sound = document.getElementById('successSound');
+    if (sound) {
+      sound.currentTime = 0; // Rewind to start
+      sound.play().catch(e => console.log("Audio play prevented:", e));
+    }
+  }
+
+  // Wait for DOM to load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Form submission handler
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        
+        // On successful submission:
+        playSuccessSound();
+        window.location.href = 'thank-you.html'; // Or show thank-you message
+      });
+    }
+
+    // Send Another button functionality
+    const sendAnotherBtn = document.getElementById('send-another');
+    if (sendAnotherBtn) {
+      sendAnotherBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Reset form
+        const form = document.getElementById('contact-form');
+        if (form) {
+          form.reset();
+          form.scrollIntoView({ behavior: 'smooth' });
+          
+          // Focus first input field
+          const firstInput = form.querySelector('input, textarea');
+          if (firstInput) firstInput.focus();
+        }
+        
+        // Replay sound if needed
+        playSuccessSound();
+      });
+    }
+  });
+});
   </script>
 </body>
 </html>

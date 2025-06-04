@@ -156,7 +156,7 @@ function setupCVDownload() {
         const originalHTML = cvBtn.innerHTML;
         
         // UI Feedback
-        cvBtn.innerHTML = '<span class="spinner">⏳</span> Preparing Download...';
+        cvBtn.innerHTML = '<span class="spinner"></span> Preparing Download...';
         cvBtn.classList.add('loading');
         e.preventDefault();
 

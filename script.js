@@ -136,14 +136,14 @@ function setupScrollAnimations() {
 // Ultra-Reliable Resume Download System with better fallbacks
 function setupCVDownload() {
   try {
-    const cvBtn = document.querySelector('a[href*="Sanjaykumar_CV.pdf"], a[data-cv-download]');
+    const cvBtn = document.querySelector('a[href*="Sanjaykumar-Resume CV.pdf"], a[data-cv-download]');
     if (!cvBtn) {
       console.warn('CV download button not found');
       return;
     }
 
     // Configuration
-    const GOOGLE_DRIVE_ID = '1Whdi90y-_KkYo4TkfP54epXrr6gHkzHo';
+    const GOOGLE_DRIVE_ID = '1yQZaIj3qgPEsQUg9WP-4Hb6XD5MuibG3';
     const FALLBACK_URL = cvBtn.href || `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_ID}`;
     const GDRIVE_LINKS = [
       `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_ID}`,

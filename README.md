@@ -1,77 +1,51 @@
-🌟 Sanjay Kumar – Portfolio Frontend
+# 🌟 Sanjay Kumar - Portfolio Frontend
 
+[![GitHub stars](https://img.shields.io/github/stars/Sanjaykumar-tech/portfolio_frontend?style=social)](https://github.com/Sanjaykumar-tech/portfolio_frontend)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fsanjaykumar-tech.github.io%2Fportfolio_frontend)](https://sanjaykumar-tech.github.io/portfolio_frontend)
 
+A modern, responsive portfolio showcasing my frontend development skills and projects.
 
-A sleek, modern, and fully responsive portfolio to showcase my frontend development skills and featured projects.
+![Portfolio Preview](./assets/images/![Uploading portfolio.preview.png…]()
+)
 
+## ✨ Key Features
 
-✨ Features
-Responsive Design – Optimized for mobile, tablet, and desktop
+- **Fully Responsive** - Works on all devices (mobile, tablet, desktop)
+- **Performance Optimized** - 95+ Lighthouse score
+- **Interactive Elements**:
+  - Smooth scroll navigation
+  - Project filter system
+  - Animated contact form
+- **Dark/Light Mode** - Automatic system preference detection
+- **SEO Optimized** - Proper meta tags and semantic HTML
 
-High Performance – 95+ Lighthouse score for speed and accessibility
+## 🛠️ Tech Stack
 
-Interactive UI –
+| Category       | Technologies Used                     |
+|----------------|---------------------------------------|
+| **Core**       | HTML5, CSS3, JavaScript (ES6+)        |
+| **Styling**    | CSS Variables, Flexbox, Grid          |
+| **Animations** | CSS Transitions, GSAP (for complex animations) |
+| **Tools**      | Git, Webpack, ESLint                  |
 
-Smooth scroll navigation
+## 🚀 Getting Started
 
-Project filtering functionality
+### Prerequisites
+- Node.js (v14+)
+- npm/yarn
 
-Animated contact form
-
-Dark/Light Mode – Automatically adapts to system preferences
-
-SEO Friendly – Proper meta tags and semantic HTML for better indexing
-
-🛠️ Tech Stack
-Category	Tools & Technologies
-Core	HTML5, CSS3, JavaScript (ES6+)
-Styling	CSS Variables, Flexbox, Grid
-Animations	CSS Transitions, GSAP (for animations)
-Utilities	Git, Webpack, ESLint
-
-🚀 Getting Started
-Prerequisites
-Node.js (v14 or higher)
-
-npm or yarn
-
-Installation
+### Installation
 bash
-Copy
-Edit
 # Clone the repository
 git clone https://github.com/Sanjaykumar-tech/portfolio_frontend.git
 
-# Move into the project folder
+# Navigate to project directory
 cd portfolio_frontend
 
 # Install dependencies
 npm install
 
-# Start the development server
+# Run development server
 npm start
-🤝 Contributing
-Contributions are welcome! If you find bugs or have suggestions for improvements:
 
-Fork the repo
-
-Create a new branch (git checkout -b feature-name)
-
-Commit your changes (git commit -m 'Add feature')
-
-Push to the branch (git push origin feature-name)
-
-Open a Pull Request
-
-📄 License
-This project is licensed under the MIT License.
-You’re free to use, modify, and distribute it with attribution.
-
-📬 Contact
-Feel free to reach out!
-
-Portfolio: sanjaykumar-tech.github.io/portfolio_frontend
-
-GitHub: @Sanjaykumar-tech
-
-Email: sanjaykumar.techdev@gmail.com
+re wright

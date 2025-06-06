@@ -5,7 +5,8 @@
 
 A modern, responsive portfolio showcasing my frontend development skills and projects.
 
-![Portfolio Preview](./assets/images/portfolio-preview.png)
+![Portfolio Preview](./assets/images/![Uploading portfolio.preview.png…]()
+)
 
 ## ✨ Key Features
 
